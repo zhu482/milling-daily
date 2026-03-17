@@ -7,374 +7,135 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --red: #c0392b;
-    --red-light: #fdf2f1;
-    --black: #1a1a1a;
-    --gray-dark: #333;
-    --gray: #666;
-    --gray-light: #999;
-    --border: #e0e0e0;
-    --bg: #fafaf8;
-    --white: #ffffff;
+    --red: #c0392b; --red-light: #fdf2f1; --black: #1a1a1a;
+    --gray-dark: #333; --gray: #666; --gray-light: #999;
+    --border: #e0e0e0; --bg: #fafaf8; --white: #ffffff;
   }
-
-  body {
-    font-family: 'Noto Sans SC', sans-serif;
-    background: var(--bg);
-    color: var(--black);
-    font-size: 14px;
-    line-height: 1.7;
-  }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--black); font-size: 14px; line-height: 1.7; }
 
   /* ── HEADER ── */
-  .header {
-    background: var(--white);
-    border-bottom: 3px solid var(--red);
-    padding: 20px 0 0;
+  .header { background: var(--white); border-bottom: 3px solid var(--red); padding: 20px 0 0; }
+  .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .masthead { font-family: 'Noto Serif SC', serif; }
+  .masthead h1 { font-size: 28px; font-weight: 700; color: var(--black); letter-spacing: 0.02em; line-height: 1.2; }
+  .masthead h1 span { color: var(--red); }
+  .masthead .sub { font-size: 11px; color: var(--gray-light); font-family: 'Noto Sans SC', sans-serif; font-weight: 300; letter-spacing: 0.08em; margin-top: 3px; }
+  .header-meta { text-align: right; font-size: 11px; color: var(--gray-light); line-height: 1.8; }
+  .header-meta .date { font-size: 16px; font-weight: 600; color: var(--gray-dark); font-family: 'Noto Serif SC', serif; }
+  .header-nav { display: flex; gap: 0; margin-top: 12px; border-top: 1px solid var(--border); }
+  .header-nav button {
+    display: inline-block; padding: 8px 20px; font-size: 13px; color: var(--gray);
+    background: none; border: none; border-top: 2px solid transparent; margin-top: -1px;
+    cursor: pointer; font-family: 'Noto Sans SC', sans-serif; transition: color 0.15s;
   }
-  .header-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-  }
-  .masthead {
-    font-family: 'Noto Serif SC', serif;
-  }
-  .masthead h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--black);
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-  }
-  .masthead h1 span {
-    color: var(--red);
-  }
-  .masthead .sub {
-    font-size: 11px;
-    color: var(--gray-light);
-    font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.08em;
-    margin-top: 3px;
-  }
-  .header-meta {
-    text-align: right;
-    font-size: 11px;
-    color: var(--gray-light);
-    line-height: 1.8;
-  }
-  .header-meta .date {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--gray-dark);
-    font-family: 'Noto Serif SC', serif;
-  }
-  .header-nav {
-    display: flex;
-    gap: 0;
-    margin-top: 12px;
-    border-top: 1px solid var(--border);
-  }
-  .header-nav a {
-    display: inline-block;
-    padding: 8px 20px;
-    font-size: 13px;
-    color: var(--gray);
-    text-decoration: none;
-    cursor: pointer;
-    border-top: 2px solid transparent;
-    margin-top: -1px;
-    transition: color 0.2s;
-  }
-  .header-nav a.active {
-    color: var(--red);
-    border-top-color: var(--red);
-    font-weight: 500;
-  }
+  .header-nav button:hover { color: var(--black); }
+  .header-nav button.active { color: var(--red); border-top-color: var(--red); font-weight: 500; }
+
+  /* ── TAB PANELS ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 
   /* ── LAYOUT ── */
-  .main-wrap {
-    max-width: 1100px;
-    margin: 24px auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 24px;
-  }
+  .main-wrap { max-width: 1100px; margin: 24px auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
 
   /* ── SUMMARY BOX ── */
-  .summary-box {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--red);
-    padding: 18px 20px;
-    margin-bottom: 20px;
-  }
-  .summary-box .label {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--red);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .summary-box p {
-    font-size: 14px;
-    color: var(--gray-dark);
-    line-height: 1.8;
-  }
-  .summary-box .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 12px;
-  }
-  .summary-box .tag {
-    background: var(--red-light);
-    color: var(--red);
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-weight: 500;
-  }
+  .summary-box { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--red); padding: 18px 20px; margin-bottom: 20px; }
+  .summary-box .label { font-size: 10px; font-weight: 500; color: var(--red); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .summary-box p { font-size: 14px; color: var(--gray-dark); line-height: 1.8; }
+  .summary-box .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .summary-box .tag { background: var(--red-light); color: var(--red); font-size: 11px; padding: 2px 8px; border-radius: 2px; font-weight: 500; }
 
   /* ── SIGNAL STRIP ── */
-  .signal-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .signal-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 14px 16px;
-    position: relative;
-    overflow: hidden;
-  }
-  .signal-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--red);
-  }
-  .signal-card .s-label {
-    font-size: 10px;
-    color: var(--gray-light);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .signal-card .s-val {
-    font-size: 22px;
-    font-weight: 700;
-    font-family: 'Noto Serif SC', serif;
-    color: var(--black);
-    line-height: 1.2;
-  }
+  .signal-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .signal-card { background: var(--white); border: 1px solid var(--border); padding: 14px 16px; position: relative; overflow: hidden; }
+  .signal-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+  .signal-card .s-label { font-size: 10px; color: var(--gray-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .signal-card .s-val { font-size: 22px; font-weight: 700; font-family: 'Noto Serif SC', serif; color: var(--black); line-height: 1.2; }
   .signal-card .s-val.up { color: #c0392b; }
+  .signal-card .s-val.down { color: #27ae60; }
   .signal-card .s-val.neutral { color: #2c7bb6; }
-  .signal-card .s-desc {
-    font-size: 11px;
-    color: var(--gray);
-    margin-top: 4px;
-    line-height: 1.5;
-  }
+  .signal-card .s-desc { font-size: 11px; color: var(--gray); margin-top: 4px; line-height: 1.5; }
 
-  /* ── NEWS LIST ── */
-  .section-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--black);
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--black);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .section-title span.count {
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--gray-light);
-    font-family: 'Noto Sans SC', sans-serif;
-  }
+  /* ── SECTION TITLE ── */
+  .section-title { font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 700; color: var(--black); padding-bottom: 8px; border-bottom: 2px solid var(--black); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+  .section-title span.count { font-size: 11px; font-weight: 400; color: var(--gray-light); font-family: 'Noto Sans SC', sans-serif; }
 
-  .news-item {
-    background: var(--white);
-    border: 1px solid var(--border);
-    margin-bottom: 10px;
-    padding: 14px 16px;
-    transition: border-color 0.2s;
-    position: relative;
-  }
+  /* ── NEWS ITEM ── */
+  .news-item { background: var(--white); border: 1px solid var(--border); margin-bottom: 10px; padding: 14px 16px; transition: border-color 0.2s; }
   .news-item:hover { border-color: #aaa; }
-  .news-item .ni-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
-  }
-  .news-item .ni-tag {
-    font-size: 10px;
-    font-weight: 500;
-    padding: 1px 6px;
-    border-radius: 1px;
-    letter-spacing: 0.05em;
-  }
+  .news-item .ni-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .news-item .ni-tag { font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 1px; letter-spacing: 0.05em; }
   .ni-tag.hot    { background: #ffeaea; color: var(--red); }
   .ni-tag.market { background: #e8f4fd; color: #2980b9; }
   .ni-tag.product{ background: #eafaf1; color: #1e8449; }
   .ni-tag.policy { background: #fef9e7; color: #d68910; }
   .ni-tag.intl   { background: #f4ecf7; color: #7d3c98; }
-  .news-item .ni-src {
-    font-size: 10px;
-    color: var(--gray-light);
-  }
-  .news-item .ni-title {
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Noto Serif SC', serif;
-    color: var(--black);
-    line-height: 1.4;
-    margin-bottom: 5px;
-  }
-  .news-item .ni-title a {
-    color: inherit;
-    text-decoration: none;
-  }
+  .ni-tag.cn     { background: #fff3e0; color: #e65100; }
+  .ni-tag.price  { background: #fce4ec; color: #c62828; }
+  .news-item .ni-src { font-size: 10px; color: var(--gray-light); }
+  .news-item .ni-title { font-size: 15px; font-weight: 600; font-family: 'Noto Serif SC', serif; color: var(--black); line-height: 1.4; margin-bottom: 5px; }
+  .news-item .ni-title a { color: inherit; text-decoration: none; }
   .news-item .ni-title a:hover { color: var(--red); }
-  .news-item .ni-body {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.7;
-  }
+  .news-item .ni-body { font-size: 13px; color: var(--gray); line-height: 1.7; }
   .news-item .ni-body strong { color: var(--gray-dark); font-weight: 500; }
 
   /* ── SIDEBAR ── */
-  .sidebar-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    margin-bottom: 16px;
-    overflow: hidden;
-  }
-  .sidebar-card .sc-head {
-    background: var(--black);
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 8px 14px;
-  }
+  .sidebar-card { background: var(--white); border: 1px solid var(--border); margin-bottom: 16px; overflow: hidden; }
+  .sidebar-card .sc-head { background: var(--black); color: var(--white); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 14px; }
   .sidebar-card .sc-body { padding: 12px 14px; }
 
-  .price-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 7px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-  }
+  .price-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
   .price-row:last-child { border-bottom: none; }
   .price-row .pr-label { color: var(--gray-dark); }
   .price-row .pr-val { font-weight: 600; color: var(--black); }
   .price-row .pr-val.up { color: var(--red); }
-  .price-row .pr-change {
-    font-size: 11px;
-    color: var(--red);
-    font-weight: 500;
-  }
+  .price-row .pr-change { font-size: 11px; color: var(--red); font-weight: 500; }
 
-  .keyword-list {
-    list-style: none;
-    counter-reset: kw;
-  }
-  .keyword-list li {
-    counter-increment: kw;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    color: var(--gray-dark);
-  }
+  .keyword-list { list-style: none; counter-reset: kw; }
+  .keyword-list li { counter-increment: kw; display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--gray-dark); }
   .keyword-list li:last-child { border-bottom: none; }
-  .keyword-list li::before {
-    content: counter(kw);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    background: var(--red);
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
+  .keyword-list li::before { content: counter(kw); display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: var(--red); color: white; font-size: 10px; font-weight: 700; flex-shrink: 0; }
   .keyword-list li:nth-child(n+4)::before { background: var(--gray-light); }
 
-  .market-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-  }
+  .market-item { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
   .market-item:last-child { border-bottom: none; }
   .market-item .mi-label { color: var(--gray-dark); }
   .market-item .mi-val { font-weight: 500; color: var(--black); }
-  .bar-wrap {
-    margin-top: 4px;
-    background: #f0f0f0;
-    height: 4px;
-    border-radius: 2px;
-    overflow: hidden;
-  }
+  .bar-wrap { margin-top: 4px; background: #f0f0f0; height: 4px; border-radius: 2px; overflow: hidden; }
   .bar { height: 100%; background: var(--red); border-radius: 2px; }
+  .signal-note { background: var(--red-light); border: 1px solid #f5c6c2; padding: 10px 12px; font-size: 12px; color: var(--red); line-height: 1.6; margin-top: 8px; }
 
-  .signal-note {
-    background: var(--red-light);
-    border: 1px solid #f5c6c2;
-    padding: 10px 12px;
-    font-size: 12px;
-    color: var(--red);
-    line-height: 1.6;
-    margin-top: 8px;
-  }
+  /* ── 原料行情 大表格 ── */
+  .price-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .price-table th { background: var(--black); color: var(--white); padding: 8px 12px; text-align: left; font-weight: 500; font-size: 11px; letter-spacing: 0.06em; }
+  .price-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--gray-dark); background: var(--white); }
+  .price-table tr:hover td { background: #fafafa; }
+  .price-table .up { color: var(--red); font-weight: 600; }
+  .price-table .stable { color: #27ae60; font-weight: 500; }
+  .price-table .warn { color: #d68910; font-weight: 500; }
+
+  /* ── CHART BARS ── */
+  .chart-wrap { background: var(--white); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 20px; }
+  .chart-title { font-family: 'Noto Serif SC', serif; font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--black); }
+  .chart-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12px; }
+  .chart-row .cr-label { width: 110px; color: var(--gray-dark); flex-shrink: 0; text-align: right; }
+  .chart-row .cr-bar-wrap { flex: 1; background: #f0f0f0; height: 20px; border-radius: 2px; overflow: hidden; position: relative; }
+  .chart-row .cr-bar { height: 100%; background: var(--red); border-radius: 2px; transition: width 0.4s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+  .chart-row .cr-bar span { font-size: 11px; color: white; font-weight: 600; white-space: nowrap; }
+  .chart-row .cr-bar.blue { background: #2980b9; }
+  .chart-row .cr-bar.green { background: #27ae60; }
 
   /* ── FOOTER ── */
-  .footer {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px 24px;
-    border-top: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--gray-light);
-    display: flex;
-    justify-content: space-between;
-  }
+  .footer { max-width: 1100px; margin: 0 auto; padding: 20px 24px; border-top: 1px solid var(--border); font-size: 11px; color: var(--gray-light); display: flex; justify-content: space-between; }
 
   @media (max-width: 760px) {
     .main-wrap { grid-template-columns: 1fr; }
     .signal-strip { grid-template-columns: 1fr 1fr; }
     .header-top { flex-direction: column; gap: 8px; }
     .header-meta { text-align: left; }
+    .header-nav button { padding: 8px 12px; font-size: 12px; }
   }
 </style>
 </head>
@@ -395,25 +156,20 @@
       </div>
     </div>
     <div class="header-nav">
-      <a class="active" href="#">🌐 全球资讯</a>
-      <a href="#">🇨🇳 国内市场</a>
-      <a href="#">💹 原材料行情</a>
+      <button class="active" onclick="switchTab('global', this)">🌐 全球资讯</button>
+      <button onclick="switchTab('china', this)">🇨🇳 国内市场</button>
+      <button onclick="switchTab('price', this)">💹 原料行情</button>
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ════════════════════ TAB 1: 全球资讯 ════════════════════ -->
+<div id="tab-global" class="tab-panel active">
 <div class="main-wrap">
-
-  <!-- LEFT COLUMN -->
   <div>
-
-    <!-- SUMMARY -->
     <div class="summary-box">
-      <div class="label">▪ 今日编辑总结</div>
-      <p>
-        本期最大信号是<strong>碳化钨原材料价格危机</strong>持续发酵——2026年3月，钨粉基准价已突破<strong>2000元/公斤</strong>，较2025年初涨幅逾540%。中国出口管制政策（"两用物项"目录）大幅收紧全球流通，多家国际刀具厂商紧急调整产品策略。与此同时，模块化换头铣削系统成为行业新宠，可转位铣刀、螺旋铣刀等细分赛道仍保持高增长。对外贸企业而言：<strong>成本涨价已成确定性，提前备货或转向可转位/换头方案是当前关键决策点。</strong>
-      </p>
+      <div class="label">▪ 今日编辑总结 · 全球</div>
+      <p>本期最大信号是<strong>碳化钨原材料价格危机</strong>持续发酵——2026年3月，钨粉基准价已突破<strong>2000元/公斤</strong>，较2025年初涨幅逾540%。中国出口管制政策（"两用物项"目录）大幅收紧全球流通，多家国际刀具厂商紧急调整产品策略。模块化换头铣削系统成为行业新宠，可转位铣刀、螺旋铣刀等细分赛道仍保持高增长。<strong>外贸企业当前关键决策：提前备货或转向可转位/换头方案。</strong></p>
       <div class="tags">
         <span class="tag">🔴 钨价暴涨</span>
         <span class="tag">模块化刀具</span>
@@ -424,7 +180,6 @@
       </div>
     </div>
 
-    <!-- SIGNAL STRIP -->
     <div class="signal-strip">
       <div class="signal-card">
         <div class="s-label">碳化钨粉末价格</div>
@@ -437,191 +192,69 @@
         <div class="s-desc">2023年基准，预测2024–2032年CAGR超6.3%</div>
       </div>
       <div class="signal-card">
-        <div class="s-label">中国刀具市场预测</div>
-        <div class="s-val">557亿</div>
-        <div class="s-desc">2026年预测值（元），数控刀具占比约50%</div>
+        <div class="s-label">硬质合金端铣刀</div>
+        <div class="s-val">12.8%</div>
+        <div class="s-desc">CAGR预测 2026–2033，精密加工需求驱动</div>
       </div>
     </div>
 
-    <!-- 头条 -->
-    <div class="section-title">
-      头条
-      <span class="count">TOP STORIES</span>
+    <div class="section-title">头条 <span class="count">TOP STORIES</span></div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag hot">🔴 紧急</span><span class="ni-src">Meetyou Carbide · 3月16日</span></div>
+      <div class="ni-title"><a href="https://www.meetyoucarbide.com/historic-tungsten-price-surge-in-2026/" target="_blank">钨价完成"历史性重构"：3月已达2000元/公斤，全球刀具厂商面临供应链断裂风险</a></div>
+      <div class="ni-body">2025年初约311元/公斤，于2026年3月突破<strong>2000元/公斤</strong>。中国2026年1月6日实施"两用物项出口目录"，白名单制度实质冻结全球流动性，绝大多数地区现货库存<strong>低于15天</strong>，工具OEM厂商正经历恐慌性采购。</div>
     </div>
 
     <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag hot">🔴 紧急</span>
-        <span class="ni-src">Meetyou Carbide · ctemag.com · 3月16日</span>
-      </div>
-      <div class="ni-title">
-        <a href="https://www.meetyoucarbide.com/historic-tungsten-price-surge-in-2026/" target="_blank">钨价完成"历史性重构"：3月已达2000元/公斤，全球刀具厂商面临供应链断裂风险</a>
-      </div>
-      <div class="ni-body">
-        2025年初约311元/公斤的基准价，在四个阶段的涨价周期后于2026年3月突破<strong>2000元/公斤</strong>。分析认为这并非周期性波动，而是"永久性结构重构"——中国于2026年1月6日实施"两用物项出口目录"，实质冻结全球市场流动性，白名单制度将钨出口限定在获批中国企业范围内，造成绝大多数地区的现货库存<strong>低于15天</strong>。全球工具OEM厂商正经历原材料恐慌性采购。
-      </div>
+      <div class="ni-meta"><span class="ni-tag hot">行业应对</span><span class="ni-src">Cutting Tool Engineering · Tungaloy · 最新</span></div>
+      <div class="ni-title"><a href="https://ctemag.com/news/tungaloy-responds-to-rising-carbide-costs/" target="_blank">Tungaloy：全固体换头刀具系统成为应对涨价的核心策略</a></div>
+      <div class="ni-body">日本刀具巨头 Tungaloy 全面推进<strong>可换头固体硬质合金系统</strong>（TungMeister铣削 / DrillMeister钻孔）。可换头设计仅更换磨损刀头，减少碳化钨消耗和废料，从根本上缓解原材料价格波动带来的成本压力。支持高进给、面铣、肩铣、切槽、倒角等全系列应用。</div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">市场动态 <span class="count">MARKET UPDATES</span></div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag market">市场</span><span class="ni-src">NBD.ltd · 2025上半年数据</span></div>
+      <div class="ni-title"><a href="https://www.nbd.ltd/news/d/5cc4eb264e6f6d9f9ff4ece1145b2d42" target="_blank">越南铣刀进口大增：汽车与电子业驱动，中日德三国竞逐</a></div>
+      <div class="ni-body">2025年上半年越南铣刀进口总额达<strong>1890万美元</strong>，以汽车制造和电子行业为最大拉动力。进口来源高度集中于<strong>中国、日本、德国</strong>，高端刀具需求持续增长，越南正成为中国铣刀企业海外布局的重要目标市场。</div>
     </div>
 
     <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag hot">🔴 行业应对</span>
-        <span class="ni-src">Cutting Tool Engineering · Tungaloy · 最新</span>
-      </div>
-      <div class="ni-title">
-        <a href="https://ctemag.com/news/tungaloy-responds-to-rising-carbide-costs/" target="_blank">Tungaloy：全固体换头刀具系统成为应对涨价的核心策略</a>
-      </div>
-      <div class="ni-body">
-        面对持续上涨的碳化钨原料成本，日本刀具巨头 Tungaloy 宣布全面推进<strong>可换头固体硬质合金系统</strong>（TungMeister铣削系统 / DrillMeister钻孔系统）。与传统整体硬质合金刀具不同，可换头设计仅在磨损后更换刀头，减少碳化钨消耗量，降低废料，从根本上缓解原材料价格波动带来的成本压力。TungMeister支持高进给、面铣、肩铣、切槽、倒角等多种铣削应用，模块化设计被明确为当前高精度制造环境下的长期竞争优势。
-      </div>
+      <div class="ni-meta"><span class="ni-tag intl">废料回收</span><span class="ni-src">P&T Metals</span></div>
+      <div class="ni-title"><a href="https://www.ptmetals.com/blog/tungsten-carbide-scrap-price-growth-2026/" target="_blank">碳化钨废料价值飙升200%，"城市矿山"回收热潮席卷全球制造业</a></div>
+      <div class="ni-body">全球碳化钨废料价格在2024年基础上上涨约<strong>200%</strong>，原本的废弃物如今价值超过多数贵金属。<strong>对中国铣刀出口企业的启示：提供以旧换新服务或再生料刀具，可能成为差异化竞争点。</strong></div>
     </div>
 
-    <!-- 市场动态 -->
-    <div class="section-title" style="margin-top:24px">
-      市场动态
-      <span class="count">MARKET UPDATES</span>
-    </div>
+    <div class="section-title" style="margin-top:24px">新品 / 技术 <span class="count">PRODUCTS & TECH</span></div>
 
     <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag market">市场</span>
-        <span class="ni-src">NBD.ltd · 2025下半年数据</span>
-      </div>
-      <div class="ni-title">
-        <a href="https://www.nbd.ltd/news/d/5cc4eb264e6f6d9f9ff4ece1145b2d42" target="_blank">越南铣刀进口大增：汽车与电子业驱动，中日德三国竞逐</a>
-      </div>
-      <div class="ni-body">
-        2025年上半年越南铣刀（HS 82081000）进口总额达<strong>1890万美元</strong>，以汽车制造和电子行业为最大拉动力。进口来源高度集中于<strong>中国、日本、德国</strong>三国，但高端刀具需求持续增长，为高精度产品留出进入窗口。越南作为东南亚制造业转移承接地，正成为中国铣刀企业海外布局的重要目标市场。
-      </div>
+      <div class="ni-meta"><span class="ni-tag product">新品</span><span class="ni-src">Metalworking 中国 · Seco Tools</span></div>
+      <div class="ni-title"><a href="https://metalworkingmag.cn/news/103933-seco" target="_blank">Seco 335.18 三面刃铣刀：70+款型号，专攻汽车/航空开槽痛点</a></div>
+      <div class="ni-body">山高工具发布335.18三面刃铣刀系列，提供<strong>70多种规格</strong>支持全面定制。平滑切削设计减少振动，刀具寿命更长，专为苛刻的重切削开槽任务设计。</div>
     </div>
+
+    <div class="section-title" style="margin-top:24px">外贸视角 <span class="count">EXPORT INSIGHTS</span></div>
 
     <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag market">市场预测</span>
-        <span class="ni-src">LinkedIn Pulse · HTF Market Insights</span>
-      </div>
-      <div class="ni-title">硬质合金端铣刀市场：2026–2033年CAGR预测达12.8%</div>
-      <div class="ni-body">
-        多家研究机构发布数据显示，全球硬质合金端铣刀市场将于2026–2033年间保持<strong>12.8%年复合增长率</strong>；螺旋铣刀细分市场预测CAGR为8.1%；可转位铣刀2024–2032年CAGR超过6.3%。需求主要来自航空航天、汽车、医疗器械等精密加工领域的持续扩张。
-      </div>
+      <div class="ni-meta"><span class="ni-tag intl">🌍 海外推广</span><span class="ni-src">招聘信息 · 广州某铣刀企业</span></div>
+      <div class="ni-title">广州铣刀企业专招短视频剪辑，YouTube/LinkedIn 成外贸获客标配</div>
+      <div class="ni-body">最新招聘信息显示，广州某主营铣刀的外贸企业正专门招募<strong>产品短视频剪辑岗位</strong>，用于 YouTube 及海外社媒推广。A股上市企业招股书中也明确记载通过<strong>LinkedIn、YouTube</strong>进行海外推广已成制造业出海标配。人工运营成本高、内容产出不稳定是普遍痛点。</div>
     </div>
-
-    <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag market">国内市场</span>
-        <span class="ni-src">东方财富证券研究 · 2023年报告</span>
-      </div>
-      <div class="ni-title">中国刀具市场2026年规模预测：557亿元，数控刀具占比将超50%</div>
-      <div class="ni-body">
-        保守测算，2026年中国刀具市场总规模约<strong>557亿元</strong>，其中数控刀具约273亿元，整体市占率约50%。数控刀具（145亿）和数控整刀（128亿）分别成为两大支柱。制造业持续升级驱动精密刀具国产替代加速，国内品牌市场份额正在提升。
-      </div>
-    </div>
-
-    <!-- 产品新品 -->
-    <div class="section-title" style="margin-top:24px">
-      新品 / 技术
-      <span class="count">PRODUCTS & TECH</span>
-    </div>
-
-    <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag product">新品</span>
-        <span class="ni-src">Metalworking 中国 · Seco Tools</span>
-      </div>
-      <div class="ni-title">
-        <a href="https://metalworkingmag.cn/news/103933-seco" target="_blank">Seco 335.18 三面刃铣刀：70+款型号，专攻汽车/航空开槽痛点</a>
-      </div>
-      <div class="ni-body">
-        山高工具（Seco）发布335.18三面刃铣刀系列，提供<strong>70多种规格</strong>，支持全面定制。平滑切削设计减少振动，刀具寿命更长，专为汽车、航空航天和通用工程领域苛刻的开槽场景而设计，可承担严苛的重切削任务。
-      </div>
-    </div>
-
-    <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag product">技术趋势</span>
-        <span class="ni-src">Instagram · chain_headway · 3月16日</span>
-      </div>
-      <div class="ni-title">
-        <a href="https://www.instagram.com/p/DV76f9uDfd4/" target="_blank">【行业热问】钨价暴涨，为什么不放弃整体端铣刀？</a>
-      </div>
-      <div class="ni-body">
-        来自 chain_headway 的帖子在海外刀具社区引发讨论：面对碳化钨原料持续涨价，整体硬质合金端铣刀的成本结构是否还具备经济性？模块化换头方案和可转位刀片正在被越来越多中小制造商纳入替代选项，相关讨论热度在 LinkedIn、Instagram 等外贸圈平台持续走高。
-      </div>
-    </div>
-
-    <!-- 外贸启示 -->
-    <div class="section-title" style="margin-top:24px">
-      外贸视角
-      <span class="count">EXPORT INSIGHTS</span>
-    </div>
-
-    <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag policy">⚡ 出口管制</span>
-        <span class="ni-src">P&T Metals · ptmetals.com</span>
-      </div>
-      <div class="ni-title">
-        <a href="https://www.ptmetals.com/blog/tungsten-carbide-scrap-price-growth-2026/" target="_blank">碳化钨废料价值飙升200%，"城市矿山"回收热潮席卷全球制造业</a>
-      </div>
-      <div class="ni-body">
-        由于中国实施白名单出口制度，全球碳化钨废料价格在2024年基础上上涨约<strong>200%</strong>，原本作为废弃物处理的硬质合金废料，如今在部分地区的价值已超过多数贵金属。南加州及欧洲制造业基地的机加工厂正通过回收废旧刀具来降低采购成本。这一趋势对中国铣刀出口企业而言，意味着<strong>"提供以旧换新服务"或"再生料刀具"可能成为差异化竞争点。</strong>
-      </div>
-    </div>
-
-    <div class="news-item">
-      <div class="ni-meta">
-        <span class="ni-tag intl">🌍 海外推广</span>
-        <span class="ni-src">招聘信息 · 广州某铣刀企业</span>
-      </div>
-      <div class="ni-title">广州铣刀企业招聘短视频剪辑，印证 YouTube/LinkedIn 成外贸获客标配</div>
-      <div class="ni-body">
-        最新招聘信息显示，广州某主营工业铣刀的外贸企业正专门招募<strong>产品短视频剪辑岗位</strong>（要求掌握PR/达芬奇），用于 YouTube 及海外社媒推广。与此同时，A股上市企业招股说明书中也明确记载，通过<strong>LinkedIn、YouTube 等广告服务商</strong>进行线上海外推广已成制造业企业出海的标配。人工运营成本高、内容产出不稳定是普遍痛点。
-      </div>
-    </div>
-
-  </div><!-- /left -->
+  </div>
 
   <!-- SIDEBAR -->
   <div>
-
-    <!-- 原材料价格 -->
     <div class="sidebar-card">
-      <div class="sc-head">💹 原材料行情参考</div>
+      <div class="sc-head">💹 原材料行情快览</div>
       <div class="sc-body">
-        <div class="price-row">
-          <span class="pr-label">碳化钨粉末</span>
-          <span>
-            <span class="pr-val up">¥2,000/kg</span><br>
-            <span class="pr-change">↑ +540% vs 2025年初</span>
-          </span>
-        </div>
-        <div class="price-row">
-          <span class="pr-label">PDC刀具</span>
-          <span>
-            <span class="pr-val up">持续上涨</span><br>
-            <span class="pr-change">↑ 跟随钨粉联动</span>
-          </span>
-        </div>
-        <div class="price-row">
-          <span class="pr-label">硬质合金废料</span>
-          <span>
-            <span class="pr-val up">$6–12/lb</span><br>
-            <span class="pr-change">↑ +200% vs 2024年</span>
-          </span>
-        </div>
-        <div class="price-row">
-          <span class="pr-label">高速钢(HSS)</span>
-          <span>
-            <span class="pr-val">相对稳定</span><br>
-            <span style="font-size:11px;color:#999">替代需求增加</span>
-          </span>
-        </div>
-        <div class="signal-note">
-          ⚠️ 中国出口白名单制度已激活，全球主要地区现货库存普遍低于15天，建议提前锁定原料或与供应商签订长约。
-        </div>
+        <div class="price-row"><span class="pr-label">碳化钨粉末</span><span><span class="pr-val up">¥2,000/kg</span><br><span class="pr-change">↑ +540% vs 2025年初</span></span></div>
+        <div class="price-row"><span class="pr-label">PDC刀具</span><span><span class="pr-val up">持续上涨</span><br><span class="pr-change">↑ 跟随钨粉联动</span></span></div>
+        <div class="price-row"><span class="pr-label">硬质合金废料</span><span><span class="pr-val up">$6–12/lb</span><br><span class="pr-change">↑ +200% vs 2024年</span></span></div>
+        <div class="price-row"><span class="pr-label">高速钢(HSS)</span><span><span class="pr-val">相对稳定</span><br><span style="font-size:11px;color:#999">替代需求增加</span></span></div>
+        <div class="signal-note">⚠️ 中国出口白名单制度已激活，全球主要地区现货库存普遍低于15天，建议提前锁定原料或签订长约。</div>
       </div>
     </div>
-
-    <!-- 热搜关键词 -->
     <div class="sidebar-card">
       <div class="sc-head">🔍 海外热搜词（本周）</div>
       <div class="sc-body">
@@ -636,60 +269,341 @@
         </ol>
       </div>
     </div>
-
-    <!-- 市场规模 -->
     <div class="sidebar-card">
       <div class="sc-head">📊 细分市场规模</div>
       <div class="sc-body">
-        <div class="market-item">
-          <span class="mi-label">可转位铣刀</span>
-          <span class="mi-val">$46.3亿</span>
-        </div>
+        <div class="market-item"><span class="mi-label">可转位铣刀</span><span class="mi-val">$46.3亿</span></div>
         <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
-        <div class="market-item" style="margin-top:8px">
-          <span class="mi-label">硬质合金端铣刀</span>
-          <span class="mi-val">CAGR 12.8%</span>
-        </div>
+        <div class="market-item" style="margin-top:8px"><span class="mi-label">硬质合金端铣刀</span><span class="mi-val">CAGR 12.8%</span></div>
         <div class="bar-wrap"><div class="bar" style="width:85%"></div></div>
-        <div class="market-item" style="margin-top:8px">
-          <span class="mi-label">螺旋铣刀</span>
-          <span class="mi-val">CAGR 8.1%</span>
-        </div>
+        <div class="market-item" style="margin-top:8px"><span class="mi-label">螺旋铣刀</span><span class="mi-val">CAGR 8.1%</span></div>
         <div class="bar-wrap"><div class="bar" style="width:65%"></div></div>
-        <div class="market-item" style="margin-top:8px">
-          <span class="mi-label">中国刀具总市场</span>
-          <span class="mi-val">557亿元</span>
-        </div>
-        <div class="bar-wrap"><div class="bar" style="width:92%"></div></div>
       </div>
     </div>
-
-    <!-- 今日来源 -->
     <div class="sidebar-card">
       <div class="sc-head">📡 今日信源</div>
       <div class="sc-body" style="font-size:12px;color:#666;line-height:2">
-        Cutting Tool Engineering<br>
-        Meetyou Carbide<br>
-        Metalworking 中国<br>
-        LinkedIn Pulse<br>
-        Instagram (chain_headway)<br>
-        Facebook (Zhuzhou Kunrui)<br>
-        YouTube (passiontool.com)<br>
-        P&T Metals<br>
-        NBD.ltd<br>
-        东方财富证券研究报告<br>
-        搜狐 / 招聘平台
+        Cutting Tool Engineering<br>Meetyou Carbide<br>Metalworking 中国<br>LinkedIn Pulse<br>Instagram (chain_headway)<br>P&T Metals<br>NBD.ltd<br>东方财富证券研究报告<br>搜狐 / 招聘平台
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════ TAB 2: 国内市场 ════════════════════ -->
+<div id="tab-china" class="tab-panel">
+<div class="main-wrap">
+  <div>
+    <div class="summary-box">
+      <div class="label">▪ 今日编辑总结 · 国内</div>
+      <p>2026年中国刀具市场规模预测达<strong>557亿元</strong>，数控刀具占比将超50%。制造业升级持续推动<strong>国产替代</strong>加速，硬质合金铣刀和数控铣刀的品牌竞争日趋激烈。上游钨价暴涨对国内刀具厂商形成显著成本压力，拥有全产业链（矿山→粉末→刀具）的企业竞争优势明显放大。</p>
+      <div class="tags">
+        <span class="tag">国产替代</span>
+        <span class="tag">数控刀具</span>
+        <span class="tag">全产业链优势</span>
+        <span class="tag">557亿元市场</span>
+        <span class="tag">硬质合金</span>
       </div>
     </div>
 
-  </div><!-- /sidebar -->
+    <div class="signal-strip">
+      <div class="signal-card">
+        <div class="s-label">中国刀具市场规模（2026预测）</div>
+        <div class="s-val">557亿</div>
+        <div class="s-desc">较2023年约增长25%，制造业升级驱动</div>
+      </div>
+      <div class="signal-card">
+        <div class="s-label">数控刀具占比</div>
+        <div class="s-val neutral">~50%</div>
+        <div class="s-desc">数控刀具约273亿元，整刀+刀片双轮驱动</div>
+      </div>
+      <div class="signal-card">
+        <div class="s-label">国产替代进度</div>
+        <div class="s-val down">加速</div>
+        <div class="s-desc">高端品类仍依赖进口，中端市场国产份额快速提升</div>
+      </div>
+    </div>
 
-</div><!-- /main-wrap -->
+    <div class="section-title">市场格局 <span class="count">MARKET LANDSCAPE</span></div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag cn">国内</span><span class="ni-src">东方财富证券研究报告</span></div>
+      <div class="ni-title">中国刀具市场2026年规模预测：557亿元，数控刀具占比超50%</div>
+      <div class="ni-body">保守测算，2026年中国刀具市场总规模约<strong>557亿元</strong>，其中数控刀具约273亿元（整体占比约50%）。数控刀具（145亿）和数控整刀（128亿）分别成为两大支柱。制造业持续升级驱动精密刀具国产替代加速，国内品牌市场份额正在快速提升。</div>
+    </div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag cn">品牌竞争</span><span class="ni-src">搜狐 · 2026年厂家推荐榜</span></div>
+      <div class="ni-title"><a href="https://www.sohu.com/a/992201959_122507283" target="_blank">2026年铣刀厂家深度解析：全产业链企业竞争优势显著放大</a></div>
+      <div class="ni-body">2026年切削铣刀市场呈现<strong>专业化、细分化</strong>趋势。拥有"从钨矿开采→粉末制备→合金生产→刀具制造"全产业链闭环的企业，在原材料暴涨背景下竞争优势大幅放大，对材料性能拥有极致控制力，成本转嫁能力更强。</div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">细分品类 <span class="count">PRODUCT SEGMENTS</span></div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag cn">细分</span><span class="ni-src">搜狐 · 2026年面铣刀推荐</span></div>
+      <div class="ni-title"><a href="https://www.sohu.com/a/992204783_122507283" target="_blank">面铣刀赛道：深圳众业达等国产品牌加速崛起</a></div>
+      <div class="ni-body">2026年面铣刀市场，以深圳市众业达精工科技为代表的国产品牌凭借<strong>精密高效切削</strong>和性价比优势加速崛起。航空航天、新能源汽车等领域的快速扩张为国产面铣刀带来大量增量需求。</div>
+    </div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag cn">技术趋势</span><span class="ni-src">搜狐 · 钨钢铣刀专题</span></div>
+      <div class="ni-title">钨钢铣刀市场：材料科学进步推动需求从"单一工具"向"解决方案"升级</div>
+      <div class="ni-body">随着材料科学进步与数控技术普及，国内市场对铣刀的需求已从单一工具升级为<strong>系统化切削解决方案</strong>。TiAlN涂层、新型涂层工艺的国产化应用加速，刀具寿命和切削稳定性大幅提升，与进口产品差距逐步收窄。</div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">地区产业带 <span class="count">REGIONAL CLUSTERS</span></div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag product">产业带</span><span class="ni-src">综合整理</span></div>
+      <div class="ni-title">中国铣刀主要产业集群分布与出口潜力</div>
+      <div class="ni-body">
+        国内刀具产业高度集中于以下区域：<br>
+        • <strong>株洲（湖南）</strong> — 硬质合金最大产区，上游原材料到刀具全产业链完整<br>
+        • <strong>深圳/广东</strong> — 精密CNC刀具，外贸出口导向强，LinkedIn/YouTube推广意识领先<br>
+        • <strong>上海/苏州</strong> — 高端数控刀具，汽车/航空配套为主<br>
+        • <strong>成都/重庆</strong> — 军工/航空航天刀具需求驱动的新兴产区<br>
+        广东企业在海外社媒运营方面走在最前，已率先招募视频运营人才。
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR 国内 -->
+  <div>
+    <div class="chart-wrap">
+      <div class="chart-title">📊 中国刀具市场结构（2026预测）</div>
+      <div class="chart-row"><span class="cr-label">数控整刀</span><div class="cr-bar-wrap"><div class="cr-bar" style="width:47%"><span>128亿元</span></div></div></div>
+      <div class="chart-row"><span class="cr-label">数控刀片</span><div class="cr-bar-wrap"><div class="cr-bar blue" style="width:53%"><span>145亿元</span></div></div></div>
+      <div class="chart-row"><span class="cr-label">非数控刀具</span><div class="cr-bar-wrap"><div class="cr-bar green" style="width:100%"><span>284亿元</span></div></div></div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head">🏭 主要国产品牌</div>
+      <div class="sc-body" style="font-size:13px">
+        <div class="market-item"><span class="mi-label">株洲钻石</span><span class="mi-val">全产业链</span></div>
+        <div class="market-item"><span class="mi-label">株洲硬质合金</span><span class="mi-val">原料优势</span></div>
+        <div class="market-item"><span class="mi-label">深圳众业达</span><span class="mi-val">精密刀具</span></div>
+        <div class="market-item"><span class="mi-label">成都工具研究所</span><span class="mi-val">军工/航空</span></div>
+        <div class="market-item"><span class="mi-label">上海工具厂</span><span class="mi-val">通用型</span></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head">🔍 国内热搜词（本周）</div>
+      <div class="sc-body">
+        <ol class="keyword-list">
+          <li>硬质合金铣刀厂家推荐</li>
+          <li>数控铣刀国产替代</li>
+          <li>钨钢铣刀价格</li>
+          <li>面铣刀选购指南</li>
+          <li>CNC铣刀涂层比较</li>
+          <li>铣刀外贸出口</li>
+          <li>球头铣刀精加工</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head">⚠️ 政策风险提示</div>
+      <div class="sc-body" style="font-size:12px;color:#666;line-height:1.8">
+        <div class="signal-note">中国出口管制升级：碳化钨已纳入"两用物项"目录，建议关注后续可能扩展到刀具成品的管制动向。</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════ TAB 3: 原料行情 ════════════════════ -->
+<div id="tab-price" class="tab-panel">
+<div class="main-wrap">
+  <div>
+    <div class="summary-box">
+      <div class="label">▪ 今日编辑总结 · 原料行情</div>
+      <p>碳化钨粉末价格已完成"历史性结构重构"，从2025年初约311元/公斤飙升至2026年3月<strong>2000元/公斤</strong>，涨幅超540%。这不是周期性波动——中国出口管制、全球供应链重组、战略储备需求叠加，构成<strong>永久性新价格底座</strong>。硬质合金废料的回收价值同期暴涨200%，钴粉则在2026年初开启新一轮上涨。刀具企业的成本结构正在被彻底重塑。</p>
+      <div class="tags">
+        <span class="tag">🔴 历史高位</span>
+        <span class="tag">结构性短缺</span>
+        <span class="tag">出口管制</span>
+        <span class="tag">废料回收暴涨</span>
+        <span class="tag">钴粉新涨</span>
+      </div>
+    </div>
+
+    <div class="signal-strip">
+      <div class="signal-card">
+        <div class="s-label">碳化钨粉 当前价格</div>
+        <div class="s-val up">¥2,000/kg</div>
+        <div class="s-desc">2025年初基准 ¥311/kg，540%涨幅</div>
+      </div>
+      <div class="signal-card">
+        <div class="s-label">硬质合金废料</div>
+        <div class="s-val up">+200%</div>
+        <div class="s-desc">$6–12/lb，部分地区已超多数贵金属价值</div>
+      </div>
+      <div class="signal-card">
+        <div class="s-label">全球库存水位</div>
+        <div class="s-val up">&lt;15天</div>
+        <div class="s-desc">绝大多数地区现货库存告急，恐慌性采购持续</div>
+      </div>
+    </div>
+
+    <div class="section-title">主要原材料价格表 <span class="count">PRICE TABLE · 2026.03</span></div>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>原材料</th>
+          <th>当前价格</th>
+          <th>2025年初价格</th>
+          <th>涨幅</th>
+          <th>趋势</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>碳化钨粉末</strong></td>
+          <td class="up">¥2,000/kg</td>
+          <td>¥311/kg</td>
+          <td class="up">↑ +543%</td>
+          <td class="up">持续上涨</td>
+          <td>中国出口管制白名单已生效</td>
+        </tr>
+        <tr>
+          <td><strong>钴粉</strong></td>
+          <td class="up">新一轮上涨</td>
+          <td>¥280/kg（2025年底）</td>
+          <td class="up">↑ 继续涨</td>
+          <td class="up">2026年初新涨</td>
+          <td>与钨粉形成双重压力</td>
+        </tr>
+        <tr>
+          <td><strong>高速钢（HSS）</strong></td>
+          <td>相对稳定</td>
+          <td>—</td>
+          <td class="stable">→ 平稳</td>
+          <td class="stable">替代需求增加</td>
+          <td>部分客户转向HSS刀具</td>
+        </tr>
+        <tr>
+          <td><strong>硬质合金废料</strong></td>
+          <td class="up">$6–12/lb</td>
+          <td>~$2–4/lb</td>
+          <td class="up">↑ +200%</td>
+          <td class="up">继续走高</td>
+          <td>"城市矿山"回收热潮</td>
+        </tr>
+        <tr>
+          <td><strong>钛合金（TiAlN涂层用）</strong></td>
+          <td class="warn">小幅上涨</td>
+          <td>—</td>
+          <td class="warn">↑ 温和</td>
+          <td class="warn">关注中</td>
+          <td>涂层刀具成本有传导压力</td>
+        </tr>
+        <tr>
+          <td><strong>PDC刀具（聚晶金刚石）</strong></td>
+          <td class="up">价格上调</td>
+          <td>—</td>
+          <td class="up">↑ 跟随</td>
+          <td class="up">联动钨粉</td>
+          <td>厂商已发涨价通知</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:24px">价格走势分析 <span class="count">PRICE ANALYSIS</span></div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag price">深度</span><span class="ni-src">Meetyou Carbide · 2026年3月</span></div>
+      <div class="ni-title"><a href="https://www.meetyoucarbide.com/historic-tungsten-price-surge-in-2026/" target="_blank">四阶段涨价复盘：从供应偏紧到全面失控</a></div>
+      <div class="ni-body">
+        <strong>阶段一（2023–2024）</strong>：中国矿山配额连续6年削减6%，供应基本面悄然收紧<br>
+        <strong>阶段二（2025上半年）</strong>：价格开始加速上涨，工具OEM厂商启动多轮调价<br>
+        <strong>阶段三（2025下半年）</strong>：全球买家恐慌性备货，库存囤积推高现货价格<br>
+        <strong>阶段四（2026年1月至今）</strong>："两用物项"出口管制生效，白名单制度冻结全球流动性，价格突破2000元/公斤
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag price">预测</span><span class="ni-src">多家机构综合 · 2026年3月</span></div>
+      <div class="ni-title">市场预测：2026年钨价是否还有上涨空间？</div>
+      <div class="ni-body">
+        主流观点认为，短期内钨价回落至2024年水平的概率极低（YouTube视频"Why Tungsten Carbide Blade Prices Won't Go Back In 2026"观点印证此判断）。关键变量：<br>
+        • <strong>中国政策</strong>：白名单扩容速度决定短期流动性<br>
+        • <strong>替代材料</strong>：陶瓷刀具、CBN刀具替代需求增加，但短期难以撼动碳化钨主导地位<br>
+        • <strong>废料回收</strong>：大规模"城市矿山"能否形成有效补充，是中期关键变量
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="ni-meta"><span class="ni-tag product">策略</span><span class="ni-src">行业建议 · 综合整理</span></div>
+      <div class="ni-title">外贸刀具企业应对价格危机的5个策略</div>
+      <div class="ni-body">
+        1. <strong>提前锁定长约</strong> — 与国内钨粉供应商签订半年以上的锁价合同<br>
+        2. <strong>推销可转位/换头方案</strong> — 将客户从整体合金刀具引导至可转位方案，降低客户使用成本，提升复购<br>
+        3. <strong>主动涨价沟通</strong> — 当前市场背景下，客户对价格上涨接受度较高，需主动传达成本逻辑<br>
+        4. <strong>回收服务</strong> — 推出废旧刀具回收+折价换新服务，锁定客户粘性<br>
+        5. <strong>差异化选材</strong> — 对特定应用推荐HSS或陶瓷刀具，帮助客户降低整体刀具成本
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR 行情 -->
+  <div>
+    <div class="chart-wrap">
+      <div class="chart-title">📈 碳化钨粉价格走势</div>
+      <div class="chart-row"><span class="cr-label">2023年</span><div class="cr-bar-wrap"><div class="cr-bar" style="width:15%"><span>¥260/kg</span></div></div></div>
+      <div class="chart-row"><span class="cr-label">2024年初</span><div class="cr-bar-wrap"><div class="cr-bar" style="width:16%"><span>¥280/kg</span></div></div></div>
+      <div class="chart-row"><span class="cr-label">2025年初</span><div class="cr-bar-wrap"><div class="cr-bar" style="width:16%"><span>¥311/kg</span></div></div></div>
+      <div class="chart-row"><span class="cr-label">2025年底</span><div class="cr-bar-wrap"><div class="cr-bar" style="width:52%"><span>¥1,040/kg</span></div></div></div>
+      <div class="chart-row"><span class="cr-label">2026年3月</span><div class="cr-bar-wrap"><div class="cr-bar" style="width:100%"><span>¥2,000/kg</span></div></div></div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head">📌 采购建议</div>
+      <div class="sc-body" style="font-size:13px;line-height:1.9;color:var(--gray-dark)">
+        <div style="margin-bottom:8px">✅ 有条件的尽量签<strong>半年锁价长约</strong></div>
+        <div style="margin-bottom:8px">✅ 评估<strong>可转位刀片</strong>替代整体刀具的可行性</div>
+        <div style="margin-bottom:8px">✅ 建立<strong>废旧刀具回收渠道</strong>，降低净采购成本</div>
+        <div style="margin-bottom:8px">⚠️ 避免大规模现货囤货（价格波动风险）</div>
+        <div>⚠️ 关注中国政策动向，警惕刀具成品纳入管制</div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sc-head">🔗 关键信源</div>
+      <div class="sc-body" style="font-size:12px;color:#666;line-height:2">
+        Meetyou Carbide<br>
+        Cutting Tool Engineering<br>
+        P&T Metals (废料回收)<br>
+        Instagram: chain_headway<br>
+        Facebook: Zhuzhou Kunrui<br>
+        YouTube: passiontool.com<br>
+        Fine-Fasteners Industry News
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 <div class="footer">
   <span>工业铣刀行业日报 · 第001期 · 2026年3月17日 · 由 AI 自动采集聚合</span>
   <span>内容来源于公开网络，仅供参考，不构成商业建议</span>
 </div>
 
+<script>
+function switchTab(tab, btn) {
+  // 隐藏所有 panel
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  // 取消所有按钮激活
+  document.querySelectorAll('.header-nav button').forEach(b => b.classList.remove('active'));
+  // 激活目标
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+  // 回到顶部
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>
